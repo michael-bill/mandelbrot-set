@@ -1,9 +1,10 @@
-#include "header.h"
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include "complex.hpp"
 
 #define W 1000
 
-struct scene
-{
+struct scene {
 	double x;
 	double y;
 	double w;
@@ -23,8 +24,7 @@ void draw();
 void renderFile();
 void calculatePoints(double xStart, double yStart, double w, int picLen, sf::Image* img);
 
-int main()
-{
+int main() {
 	sf::RenderWindow window(sf::VideoMode(W, W), "Mandelbrot");
 	window.setFramerateLimit(150);
 	window.setMouseCursorVisible(false);
@@ -42,8 +42,7 @@ int main()
 	int numberOfZooms = 0;
 
 	sf::Event event;
-	while (window.isOpen())
-	{
+	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) window.close();
 			else if (event.type == sf::Event::MouseWheelMoved) {
@@ -80,27 +79,22 @@ int main()
 				drawY = -((pixLen * pos.y) - drawY);
 
 				drawTh.launch();
-			}
-			else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && lastScenes.size() != 0) {
+			} else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && lastScenes.size() != 0) {
 				drawWidth = lastScenes[lastScenes.size() - 1].w;
 				drawX = lastScenes[lastScenes.size() - 1].x;
 				drawY = lastScenes[lastScenes.size() - 1].y;
 				lastScenes.pop_back();
 				drawTh.launch();
-			}
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1) && fileRendered) {
+			} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1) && fileRendered) {
 				renderFileTh.launch();
 			}
 		}
-
 		window.display();
 	}
-
 	return EXIT_SUCCESS;
 }
 
-void draw()
-{
+void draw() {
 	rendered = false;
 	image.create(W, W);
 
@@ -113,8 +107,7 @@ void draw()
 	rendered = true;
 }
 
-void renderFile()
-{
+void renderFile() {
 	std::cout << "Render started\n";
 	fileRendered = false;
 	sf::Image imgFile;
@@ -125,8 +118,7 @@ void renderFile()
 	fileRendered = true;
 }
 
-void calculatePoints(double xStart, double yStart, double w, int picLen, sf::Image* img)
-{
+void calculatePoints(double xStart, double yStart, double w, int picLen, sf::Image* img) {
 	Complex C(0, 0);
 	Complex Z(0, 0);
 	int i = 0;
