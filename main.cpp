@@ -98,7 +98,7 @@ void draw() {
 	rendered = false;
 	image.create(W, W);
 
-	system("cls");
+	system("clear");
 	std::cout << "Upper left corner X: " << drawX << '\n';
 	std::cout << "Upper left corner Y: " << drawY << '\n';
 	std::cout << "Width: " << drawWidth << '\n';
